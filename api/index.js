@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 // app.use('/api', userRoutes);
 // app.use('/api', authRoutes);
-app.use('/api', defaultRoute);
+app.use('/', defaultRoute);
 
 
 
