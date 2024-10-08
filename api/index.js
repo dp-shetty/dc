@@ -7,7 +7,7 @@ require('dotenv').config();
 
 // const userRoutes = require('../routes/userRoutes');
 // const authRoutes = require('../routes/authRoutes');
-const defaultRoute = require('./routes/defaultRoutes')
+const defaultRoute = require('../routes/defaultRoutes')
 
 // Initialize the app
 const app = express();
