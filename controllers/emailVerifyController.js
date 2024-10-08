@@ -28,7 +28,7 @@ const getMailVerified = async (req, res) => {
     // });
 
     res
-      .status(200).redirect(`${process.env.FRONTEND_URL}/login/auth?xyzcbanekotzyxabc=${jwtToken}`)
+      .status(200).redirect(`${process.env.FRONTEND_URL}/login?xyzcbanekotzyxabc=${jwtToken}`)
       // .sendFile(path.join(__dirname, "../public", "verificationSuccess.html"));
   } catch (error) {
     console.error("Error verifying email:", error);
