@@ -8,7 +8,22 @@ const defaultRoute = require("../routes/defaultRoutes");
 const userEmailRoutes = require("../routes/emailUsersRoutes");
 const emailVerifyRoute = require("../routes/emailVerifyRoutes");
 
+// Define allowed origins
 const frontendUrl = process.env.FRONTEND_URL;
+const frontendLogin = process.env.FRONTEND_LOGIN;
+const frontendLoginAuth = process.env.FRONTEND_LOGIN_AUTH;
+const frontendSignup = process.env.FRONTEND_SIGNUP;
+const frontendSignupAuth = process.env.FRONTEND_SIGNUP_AUTH;
+const frontendAi = process.env.FRONTEND_AI_URL;
+
+const allowedOrigins = [
+  frontendUrl,
+  frontendLogin,
+  frontendLoginAuth,
+  frontendSignup,
+  frontendSignupAuth,
+  frontendAi,
+];
 
 // Initialize the app
 const app = express();
@@ -17,7 +32,19 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+// CORS middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  // Check if the origin is in the allowed origins
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin); // Set the allowed origin
+    res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies)
+  }
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allow specific methods
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allow specific headers
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));

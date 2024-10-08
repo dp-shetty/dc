@@ -1,6 +1,11 @@
 const emailUser = require("../models/emailUsersModel");
 const path = require("path");
 const frontendUrl = process.env.FRONTEND_URL;
+const frontendLogin = process.env.FRONTENT_LOGIN;
+const frontendLoginAuth = process.env.FRONTEND_LOGIN_AUTH;
+const frontendSignup = process.env.FRONTEND_SIGNUP;
+const frontendSignupAuth = process.env.FRONTEND_SIGNUP_AUTH;
+const frontendAi = process.env.FRONTEND_AI_URL;
 const generateJwtToken = require("../config/jwt");
 
 const getMailVerified = async (req, res) => {
@@ -28,10 +33,9 @@ const getMailVerified = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    res.header("Access-Control-Allow-Origin", frontendUrl); // Frontend URL
-    res.header("Access-Control-Allow-Credentials", "true");
-
-    res.status(200).sendFile(path.join(__dirname, "../public", "verificationSuccess.html"))
+    res
+      .status(200)
+      .sendFile(path.join(__dirname, "../public", "verificationSuccess.html"));
   } catch (error) {
     console.error("Error verifying email:", error);
     res.status(500).send("Internal server error.");
