@@ -8,14 +8,8 @@ const defaultRoute = require("../routes/defaultRoutes");
 const userEmailRoutes = require("../routes/emailUsersRoutes");
 const emailVerifyRoute = require("../routes/emailVerifyRoutes");
 
-// Define allowed origins
-const frontendUrl = process.env.FRONTEND_URL;
-const frontendLogin = process.env.FRONTEND_LOGIN;
-const frontendLoginAuth = process.env.FRONTEND_LOGIN_AUTH;
-const frontendSignup = process.env.FRONTEND_SIGNUP;
-const frontendSignupAuth = process.env.FRONTEND_SIGNUP_AUTH;
-const frontendAi = process.env.FRONTEND_AI_URL;
-
+// Get frontend URLs from environment variables
+const frontendUrl = process.env.FRONTEND_URL; // "https://dchalios.vercel.app"
 
 // Initialize the app
 const app = express();
@@ -23,31 +17,25 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware
 // CORS middleware
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-
-  // Allow requests from the frontend URL only
-  if (origin === frontendUrl) {
-    res.header("Access-Control-Allow-Origin", frontendUrl);
-    res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies)
-  }
-
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allow specific methods
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allow specific headers
-  next();
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: frontendUrl, // Frontend domain
+    origin: [
+      frontendUrl, 
+      process.env.FRONTEND_LOGIN, 
+      process.env.FRONTEND_LOGIN_AUTH,
+      process.env.FRONTEND_SIGNUP,
+      process.env.FRONTEND_SIGNUP_AUTH,
+      process.env.FRONTEND_AI_URL,
+    ], // Allow multiple frontend URLs
     credentials: true, // Allow credentials (cookies) to be sent
   })
 );
+
+// Middleware for parsing JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/api", defaultRoute);
