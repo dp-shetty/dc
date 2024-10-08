@@ -1,11 +1,5 @@
 const emailUser = require("../models/emailUsersModel");
 const path = require("path");
-const frontendUrl = process.env.FRONTEND_URL;
-const frontendLogin = process.env.FRONTENT_LOGIN;
-const frontendLoginAuth = process.env.FRONTEND_LOGIN_AUTH;
-const frontendSignup = process.env.FRONTEND_SIGNUP;
-const frontendSignupAuth = process.env.FRONTEND_SIGNUP_AUTH;
-const frontendAi = process.env.FRONTEND_AI_URL;
 const generateJwtToken = require("../config/jwt");
 
 const getMailVerified = async (req, res) => {
@@ -22,16 +16,16 @@ const getMailVerified = async (req, res) => {
         .sendFile(path.join(__dirname, "../public", "linkDoesntExist.html"));
     }
     user.isVerified = true;
-    const jwtToken = generateJwtToken(user);
+    // const jwtToken = generateJwtToken(user);
     await user.save();
 
-    // Set JWT token as HttpOnly cookie for cross-domain
-    res.cookie("authToken", jwtToken, {
-      httpOnly: true, // Prevent JavaScript from accessing the cookie
-      secure: process.env.NODE_ENV === "production", // Send cookie over HTTPS only
-      sameSite: "None", // Allow cross-domain (important for different domains)
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    // // Set JWT token as HttpOnly cookie for cross-domain
+    // res.cookie("authToken", jwtToken, {
+    //   httpOnly: true, // Prevent JavaScript from accessing the cookie
+    //   secure: process.env.NODE_ENV === "production", // Send cookie over HTTPS only
+    //   sameSite: "None", // Allow cross-domain (important for different domains)
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    // });
 
     res
       .status(200)

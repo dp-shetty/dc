@@ -14,20 +14,12 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// CORS middleware configuration
-
-// Configure CORS
-app.use(
-  cors({
-    origin: frontendUrl, // Frontend domain
-    credentials: true, // Allow credentials (cookies) to be sent
-  })
-);
-
-// Middleware for parsing JSON and URL-encoded data
+// Middleware
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
 
 // Routes
 app.use("/api", defaultRoute);

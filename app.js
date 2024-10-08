@@ -8,7 +8,6 @@ const defaultRoute = require("./routes/defaultRoutes");
 const userEmailRoutes = require("./routes/emailUsersRoutes");
 const emailVerifyRoute = require("./routes/emailVerifyRoutes");
 
-const frontendUrl = process.env.FRONTEND_URL;
 
 // Initialize the app
 const app = express();
@@ -21,12 +20,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  cors({
-    origin: frontendUrl, // Frontend domain
-    credentials: true, // Allow credentials (cookies) to be sent
-  })
-);
 
 // Routes
 app.use("/api", defaultRoute);
