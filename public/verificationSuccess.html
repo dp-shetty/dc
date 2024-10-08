@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verification</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #4CAF50;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    p {
+      color: #333;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-container {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      /* Mobile structure width */
+      height: 500px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .mobile-screen {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      background-color: #e7e7e7;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: beep 1s infinite;
+    }
+
+    @keyframes beep {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+      }
+    }
+
+    .mail-animation {
+      font-size: 40px;
+      animation: slideIn 1s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .emoji {
+      font-size: 50px;
+      animation: bounce 0.5s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Button styles */
+    .continue-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .continue-button:hover {
+      background-color: #45a049;
+      /* Darker shade on hover */
+    }
+
+    /* Loader styles */
+    .loader {
+      display: none;
+      margin-top: 20px;
+      font-size: 30px;
+      color: #4CAF50;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .mobile-container {
+        max-width: 80%;
+        /* Reduce size on smaller screens */
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      p {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mobile-container">
+    <div class="mobile-screen">
+      <div class="mail-animation">📧</div>
+      <h1 id="verification-title">Email Verification Successfull 🍻</h1>
+      <div id="verification-message"></div>
+      <div class="emoji">📬</div>
+      <button class="continue-button" id="continue-button">Continue to D-CHALIOS 🤖</button>
+      <div class="loader animate__animated" id="loader">Loading...</div>
+    </div>
+  </div>
+  <script>
+    const frontendUrl = "https://dchalios.vercel.app/dchalios-ai"; // Replace with your actual frontend URL
+    const continueButton = document.getElementById('continue-button');
+    const loader = document.getElementById('loader');
+
+    continueButton.addEventListener('click', () => {
+      loader.style.display = 'block'; // Show loader
+      loader.classList.add('animate__fadeIn'); // Animate fade in
+      setTimeout(() => {
+        window.location.href = frontendUrl; // Redirect after 5 seconds
+      }, 5000);
+    });
+  </script>
+</body>
+
+</html>

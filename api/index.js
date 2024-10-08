@@ -1,19 +1,20 @@
 const express = require('express');
 const cors = require('cors');
+const path = require("path");
 // const session = require('express-session');
 // const MongoDBStore = require('connect-mongodb-session')(session);
-// const connectDB = require('../config/db');
+const connectDB = require('../config/db');
 require('dotenv').config();
 
-// const userRoutes = require('../routes/userRoutes');
-// const authRoutes = require('../routes/authRoutes');
 const defaultRoute = require('../routes/defaultRoutes')
+const userEmailRoutes = require('../routes/emailUsersRoutes');
+const emailVerifyRoute = require('../routes/emailVerifyRoutes')
 
 // Initialize the app
 const app = express();
 
 // Connect to MongoDB
-// connectDB();
+connectDB();
 
 // Set up MongoDB session store
 // const store = new MongoDBStore({
@@ -29,6 +30,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 // app.use(session({
 //   secret: process.env.JWT_SECC,
 //   resave: false,
@@ -38,9 +40,9 @@ app.use(express.urlencoded({ extended: true }));
 // }));
 
 // Routes
-// app.use('/api', userRoutes);
-// app.use('/api', authRoutes);
 app.use('/api', defaultRoute);
+app.use('/api', userEmailRoutes);
+app.use('/api', emailVerifyRoute);
 
 
 
