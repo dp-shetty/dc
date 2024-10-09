@@ -1,25 +1,35 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 require("dotenv").config();
 
 const defaultRoute = require("./routes/defaultRoutes");
 const userEmailRoutes = require("./routes/emailUsersRoutes");
 const emailVerifyRoute = require("./routes/emailVerifyRoutes");
+const jwtVerifyRouter = require("./routes/jwtVerifyRouter");
 
 
 // Initialize the app
 const app = express();
 
 // Connect to MongoDB
-connectDB();
+connectDB().catch(error => {
+  console.error("Error connecting to MongoDB:", error);
+});
 
 // Middleware
-app.use(cors({
-  origin: 'https://dchalios.vercel.app', // Allow this specific origin
-  optionsSuccessStatus: 200
-}));
+const corsOptions = {
+  origin: ['https://dchalios.vercel.app','http://localhost:5173'], // Replace with your frontend URL
+  credentials: true, // Allow credentials if you use cookies
+  methods: ["GET", "POST", "OPTIONS"],
+  optionsSuccessStatus: 200, // Specify the allowed methods
+};
+
+// Middleware
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -28,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api", defaultRoute);
 app.use("/api", userEmailRoutes);
 app.use("/api", emailVerifyRoute);
+app.use("/api", jwtVerifyRouter);
 
 // Start the server (for local development)
 const PORT = process.env.PORT || 5000;
