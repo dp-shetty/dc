@@ -12,11 +12,13 @@ const emailVerifyRoute = require("../routes/emailVerifyRoutes");
 const app = express();
 
 // Connect to MongoDB
-connectDB();
+connectDB().catch(error => {
+  console.error("Error connecting to MongoDB:", error);
+});
 
 // Middleware
 app.use(cors({
-  origin: 'https://dchalios.vercel.app', // Allow this specific origin
+  origin: ['https://dchalios.vercel.app','http://localhost:5173'], // Allow this specific origin
   optionsSuccessStatus: 200
 }));
 
