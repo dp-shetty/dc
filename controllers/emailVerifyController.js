@@ -2,6 +2,8 @@ const emailUser = require("../models/emailUsersModel");
 const path = require("path");
 const generateJwtToken = require("../config/jwt");
 
+const frontendAiUrl = process.env.FRONTEND_AI_URL;
+
 const getMailVerified = async (req, res) => {
   const { token, email } = req.query;
   if (!token || !email) {
@@ -27,9 +29,8 @@ const getMailVerified = async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     // });
 
-    res
-      // .status(200).redirect(`${process.env.FRONTEND_URL}/login?xyzcbanekotzyxabc=${jwtToken}`)
-      .sendFile(path.join(__dirname, "../public", "verificationSuccess.html"));
+    // res.sendFile(path.join(__dirname, "../public", "verificationSuccess.html"));
+    res.redirect(`${frontendAiUrl}?xyzabcnekotcbazyx=${jwtToken}&email=${email}`)
   } catch (error) {
     console.error("Error verifying email:", error);
     res.status(500).send("Internal server error.");

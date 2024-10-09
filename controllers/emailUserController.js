@@ -1,7 +1,7 @@
 const emailUser = require("../models/emailUsersModel");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const sendMail  = require("../config/nodeMailer");
+const sendMail = require("../config/nodeMailer");
 
 const getEmailUser = async (req, res) => {
   try {
@@ -11,6 +11,8 @@ const getEmailUser = async (req, res) => {
     console.error(error);
   }
 };
+
+const backendUrl = process.env.BACKEND_BASE_URL;
 
 const createEmailUser = async (req, res) => {
   const { email, password } = req.body;
@@ -34,7 +36,7 @@ const createEmailUser = async (req, res) => {
 
     const subject = "Welcome to D-CHALIOS 🤖!";
 
-    const verificationLink = `https://dc-dpshetty.vercel.app/api/email-verify?token=${verificationToken}&email=${email}`;
+    const verificationLink = `${backendUrl}/email-verify?token=${verificationToken}&email=${email}`;
 
     const html = `
 <div style="font-family: Arial, sans-serif; color: #333;">
