@@ -50,8 +50,7 @@ const createEmailUser = async (req, res) => {
 </div>  
       `;
 
-    sendMail(`${email},dpsd870@gmail.com`, subject, html);
-
+    sendMail(email, subject, html);
     res.status(201).json(savedEmailUser);
   } catch (error) {
     console.error("Error saving user:", error);
