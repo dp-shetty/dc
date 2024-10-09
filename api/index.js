@@ -15,12 +15,11 @@ const app = express();
 connectDB();
 
 // Middleware
-// app.use(cors({
-//   origin: 'https://dchalios.vercel.app', // Allow this specific origin
-//   optionsSuccessStatus: 200
-// }));
+app.use(cors({
+  origin: 'https://dchalios.vercel.app', // Allow this specific origin
+  optionsSuccessStatus: 200
+}));
 
-app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
