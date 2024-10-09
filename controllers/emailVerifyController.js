@@ -22,15 +22,15 @@ const getMailVerified = async (req, res) => {
     await user.save();
 
     // Set JWT token as HttpOnly cookie for cross-domain
-    // res.cookie("authToken", jwtToken, {
-    //   httpOnly: true, // Prevent JavaScript from accessing the cookie
-    //   secure: process.env.NODE_ENV === "production", // Send cookie over HTTPS only
-    //   sameSite: "None", // Allow cross-domain (important for different domains)
-    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    // });
+    res.cookie("authToken", jwtToken, {
+      httpOnly: true, // Prevent JavaScript from accessing the cookie
+      secure: process.env.NODE_ENV === "production", // Send cookie over HTTPS only
+      sameSite: "None", // Allow cross-domain (important for different domains)
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
 
-    // res.sendFile(path.join(__dirname, "../public", "verificationSuccess.html"));
-    res.redirect(`${frontendAiUrl}?xyzabcnekotcbazyx=${jwtToken}&email=${email}`)
+    res.sendFile(path.join(__dirname, "../public", "verificationSuccess.html"));
+    // res.redirect(`${frontendAiUrl}?xyzabcnekotcbazyx=${jwtToken}&email=${email}`)
   } catch (error) {
     console.error("Error verifying email:", error);
     res.status(500).send("Internal server error.");

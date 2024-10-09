@@ -16,12 +16,15 @@ connectDB().catch(error => {
   console.error("Error connecting to MongoDB:", error);
 });
 
-// Middleware
-app.use(cors({
-  origin: ['https://dchalios.vercel.app','http://localhost:5173'], // Allow this specific origin
-  optionsSuccessStatus: 200
-}));
+const corsOptions = {
+  origin: ['https://dchalios.vercel.app','http://localhost:5173'], // Replace with your frontend URL
+  credentials: true, // Allow credentials if you use cookies
+  methods: ["GET", "POST", "OPTIONS"],
+  optionsSuccessStatus: 200, // Specify the allowed methods
+};
 
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
