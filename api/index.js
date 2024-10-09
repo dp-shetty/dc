@@ -15,18 +15,9 @@ const app = express();
 connectDB();
 
 // Middleware
-// Configure CORS to allow requests from specific origins
-const allowedOrigins = ['https://dchalios.vercel.app'];
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  optionsSuccessStatus: 200,
-  credentials: true, // Allow cookies to be sent if necessary
+  origin: 'https://dchalios.vercel.app', // Allow this specific origin
+  optionsSuccessStatus: 200
 }));
 
 app.use(express.json());
