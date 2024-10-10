@@ -3,7 +3,7 @@ const { getSocialUser, createSocialUser } = require('../controllers/socialUsersC
 
 const router = express.Router();
 
-router.get('/email-users', getSocialUser);
-router.post('/email-users', createSocialUser);
+router.get('/social-users', getSocialUser);
+router.post('/social-users', createSocialUser);
 
 module.exports = router;
