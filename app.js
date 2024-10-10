@@ -21,10 +21,10 @@ connectDB().catch(error => {
 
 // Middleware
 const corsOptions = {
-  origin: ['https://dchalios.vercel.app','http://localhost:5173'], // Replace with your frontend URL
-  credentials: true, // Allow credentials if you use cookies
+  origin: ['https://dchalios.vercel.app','http://localhost:5173'],
+  credentials: true,
   methods: ["GET", "POST", "OPTIONS"],
-  optionsSuccessStatus: 200, // Specify the allowed methods
+  optionsSuccessStatus: 200, 
 };
 
 // Middleware

@@ -9,6 +9,7 @@ const getSession = (req, res) => {
   // Verify token
   jwt.verify(token, process.env.JWT_SECC, (err, user) => {
     if (err) {
+      console.error("JWT verification error:", err);
       return res.status(403).json({ message: "Forbidden" });
     }
     res.json({ JWT_Token: token });
