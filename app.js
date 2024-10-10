@@ -10,6 +10,7 @@ const userEmailRoutes = require("./routes/emailUsersRoutes");
 const emailVerifyRoute = require("./routes/emailVerifyRoutes");
 const jwtVerifyRouter = require("./routes/jwtVerifyRouter");
 const loginVerifyRoute = require("./routes/loginVerifyRouter");
+const socialUserRoute = require("./routes/socialUsersRoutes");
 
 
 // Initialize the app
@@ -41,6 +42,7 @@ app.use("/api", userEmailRoutes);
 app.use("/api", emailVerifyRoute);
 app.use("/api", jwtVerifyRouter);
 app.use("/api", loginVerifyRoute);
+app.use("/api", socialUserRoute);
 
 // Start the server (for local development)
 const PORT = process.env.PORT || 5000;
