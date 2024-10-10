@@ -29,7 +29,8 @@ const loginVerify = async (req, res) => {
       httpOnly: true, // Prevent JavaScript from accessing the cookie
       secure: process.env.NODE_ENV === "production", // Send cookie over HTTPS only
       sameSite: "None", // Cross-domain support
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 5 * 60 * 1000, // 5 minutes in milliseconds for testing
     });
 
     return res.json({ JWT_Token: jwtToken });
