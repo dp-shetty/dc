@@ -5,6 +5,7 @@ const connectDB = require("../config/db");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
+// Import Routes
 const defaultRoute = require("../routes/defaultRoutes");
 const userEmailRoutes = require("../routes/emailUsersRoutes");
 const emailVerifyRoute = require("../routes/emailVerifyRoutes");
@@ -15,15 +16,16 @@ const loginVerifyRoute = require("../routes/loginVerifyRouter");
 const app = express();
 
 // Connect to MongoDB
-connectDB().catch(error => {
+connectDB().catch((error) => {
   console.error("Error connecting to MongoDB:", error);
 });
 
+// CORS Configuration
 const corsOptions = {
-  origin: ['https://dchalios.vercel.app','http://localhost:5173'], // Replace with your frontend URL
-  credentials: true, // Allow credentials if you use cookies
-  methods: ["GET", "POST", "OPTIONS"],
-  optionsSuccessStatus: 200, // Specify the allowed methods
+  origin: ['https://dchalios.vercel.app', 'http://localhost:5173'], // Update as needed
+  credentials: true, // Allow credentials for cookies
+  methods: ["GET", "POST", "OPTIONS"], // Allowed methods
+  optionsSuccessStatus: 200, // CORS success response
 };
 
 // Middleware
@@ -33,7 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// Routes
+// Define Routes
 app.use("/api", defaultRoute);
 app.use("/api", userEmailRoutes);
 app.use("/api", emailVerifyRoute);
