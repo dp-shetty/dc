@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const connectDB = require("../config/db");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const defaultRoute = require("../routes/defaultRoutes");
@@ -26,6 +27,7 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
