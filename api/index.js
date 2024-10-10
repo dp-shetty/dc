@@ -9,6 +9,7 @@ const defaultRoute = require("../routes/defaultRoutes");
 const userEmailRoutes = require("../routes/emailUsersRoutes");
 const emailVerifyRoute = require("../routes/emailVerifyRoutes");
 const jwtVerifyRouter = require("../routes/jwtVerifyRouter");
+const loginVerifyRoute = require("../routes/loginVerifyRouter");
 
 // Initialize the app
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api", defaultRoute);
 app.use("/api", userEmailRoutes);
 app.use("/api", emailVerifyRoute);
 app.use("/api", jwtVerifyRouter);
+app.use("/api", loginVerifyRoute);
 
 // Export the app as a Vercel function
 module.exports = app;
