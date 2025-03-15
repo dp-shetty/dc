@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken"); // Import JWT library
 
 const getSession = (req, res) => {
   const token = req.cookies?.authToken;
+  console.log("the token",token)
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
